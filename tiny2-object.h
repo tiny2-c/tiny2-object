@@ -53,11 +53,11 @@
   } T ## MTable; \
   extern T ## MTable T ## _mtable;
 
-#define TO_MTABLE_DEFINE(T, C, D, V)        \
-  T ## MTable T ## _mtable = {              \
-    ._constructor = (T ## Constructor) C, \
-    ._destructor  = (TObjectDestructor) D,  \
-    ._init_vtable = (T ## InitVTable) V,  \
+#define TO_MTABLE_DEFINE(T, C, D, V)       \
+  T ## MTable T ## _mtable = {             \
+    ._constructor = (T ## Constructor) C,  \
+    ._destructor  = (TObjectDestructor) D, \
+    ._init_vtable = (T ## InitVTable) V,   \
 
 #define TO_MTABLE_DEFINE_METHOD(T, n, f) \
   .n = (T) f,
@@ -67,14 +67,14 @@
 
 #define TO_VTABLE(T, P)        \
   typedef struct T ## VTable { \
-    P ## VTable _parent;     \
+    P ## VTable _parent;       \
     bool _initialized;
 
 #define TO_VTABLE_METHOD(T, f) \
   T f;
 
 #define TO_VTABLE_END(T) \
-  } T ## VTable; \
+  } T ## VTable;        \
   extern T ## VTable T ## _vtable; 
 
 #define TO_VTABLE_DEFINE(T)    \
@@ -87,7 +87,7 @@
 #define TO_VTABLE_DEFINE_END(T) \
   };
 
-#define TO_VTABLE_INIT(v, T, P)                                         \
+#define TO_VTABLE_INIT(v, T, P)                                                            \
   if (!(((P ## VTable *) v)->_initialized)) (P ## _mtable)._init_vtable((P ## VTable*) v); \
   v->_initialized = true;
 

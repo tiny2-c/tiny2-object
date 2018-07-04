@@ -17,8 +17,8 @@ TO_VTABLE_DEFINE(Greeter)
 TO_VTABLE_DEFINE_END(Greeter)
 
 static Greeter* greeter_constructor(Greeter* self) {
-  TO_SETUP(Greeter, self, greeter_destructor);
   TO_INIT(TObject, self);
+  TO_SETUP(Greeter, self, greeter_destructor);
   return self;
 }
 

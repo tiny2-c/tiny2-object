@@ -14,8 +14,8 @@ TO_VTABLE_DEFINE(TitleGreeter)
 TO_VTABLE_DEFINE_END(TitleGreeter)
 
 static TitleGreeter* titlegreeter_constructor(TitleGreeter* self, const char* title) {
-  TO_SETUP(TitleGreeter, self, titlegreeter_destructor);
   TO_INIT(Greeter, self);
+  TO_SETUP(TitleGreeter, self, titlegreeter_destructor);
   self->title = title;
   return self;
 }

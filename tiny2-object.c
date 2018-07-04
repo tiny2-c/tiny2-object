@@ -58,7 +58,7 @@ static void tobject_ref(TObject* self) {
 
 static void tobject_unref(TObject* self) {
   --(self->refcount);
-  if (self->refcount == 0) {
+  if (self->refcount <= 0) {
     self->top_destructor(self);
     free(self);
   }
