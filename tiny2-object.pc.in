@@ -1,0 +1,6 @@
+Name: tiny2-object
+Description: An OOP implementation for C
+Version: @PROJECT_VERSION@
+Requires:
+Cflags: -I@CMAKE_INSTALL_PREFIX@/include/
+Libs: -L@CMAKE_INSTALL_PREFIX@/lib/ -ltiny2-object
