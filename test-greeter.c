@@ -27,7 +27,9 @@ static void greeter_init_vtable(GreeterVTable* v) {
   TO_VTABLE_SET(v, Greeter, GreeterVGreet, vgreet, greeter_vgreet);
 }
 
-static void greeter_destructor(Greeter* self) {}
+static void greeter_destructor(Greeter* self) {
+  TO_DESTROY_PARENT(TObject, self);
+}
 
 static void greeter_greet(Greeter* self, const char* who) {
   printf("Hello, %s\n", who);

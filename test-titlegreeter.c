@@ -20,7 +20,9 @@ static TitleGreeter* titlegreeter_constructor(TitleGreeter* self, const char* ti
   return self;
 }
 
-static void titlegreeter_destructor(TitleGreeter* self) {}
+static void titlegreeter_destructor(TitleGreeter* self) {
+  TO_DESTROY_PARENT(Greeter, self);
+}
 
 static void titlegreeter_init_vtable(TitleGreeterVTable* v) {
   TO_VTABLE_INIT(v, TitleGreeter, Greeter);

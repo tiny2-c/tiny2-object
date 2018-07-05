@@ -4,7 +4,7 @@
 #include <stddef.h>
 
 /*
- * Definition macros
+ * Macros
  */ 
 
 #define TO_CLASS_DECL(T)                  \
@@ -105,9 +105,8 @@
   o->_vtable = &(T ## _vtable);                           \
   if (!((T ## _vtable)._initialized)) { TO(T, o)->_init_vtable(&(T ## _vtable)); }
 
-/*
- * Object macros
- */
+#define TO_DESTROY_PARENT(P, s) \
+  (P ## _mtable)._destructor((TObject*) s);
 
 #define TO_NEW(T, ...) \
   (T*) TO_INIT(T, to_new_sz(sizeof(T), #T), ##__VA_ARGS__)
