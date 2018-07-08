@@ -53,10 +53,12 @@ static void tobject_init_vtable(TObjectVTable* v) {
 }
 
 static void tobject_ref(TObject* self) {
+  if (self == NULL) return;
   ++(self->refcount);
 }
 
 static void tobject_unref(TObject* self) {
+  if (self == NULL) return;
   --(self->refcount);
   if (self->refcount <= 0) {
     self->top_destructor(self);
