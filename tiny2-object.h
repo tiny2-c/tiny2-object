@@ -31,15 +31,6 @@
 #define TO_CLASS_END(T) \
   } T;
 
-#define TO_CLASS_PRIVATE(T) \
-  typedef struct T ## _private {
-
-#define TO_CLASS_PRIVATE_END(T) \
-  } T ## _private;
-
-#define TO_CLASS_PROPERTY(T, n) \
-  T n;
-
 #define TO_MTABLE(T)                 \
   typedef struct T ## MTable {       \
     T ## Constructor _constructor; \
@@ -126,6 +117,92 @@
 
 #define TO_REF(o) TO_CALL(TObject, o, ref);
 #define TO_UNREF(o) TO_CALL(TObject, o, unref);
+
+#ifndef TINY2_NO_SHORTCUTS
+  #define $CLASS_DECL TO_CLASS_DECL
+  #define $class_decl TO_CLASS_DECL
+
+  #define $CLASS TO_CLASS
+  #define $class TO_CLASS
+
+  #define $CLASS_WITH_PRIVATE TO_CLASS_WITH_PRIVATE
+  #define $class_with_private TO_CLASS_WITH_PRIVATE
+
+  #define $CLASS_PROPERTY TO_CLASS_PROPERTY
+  #define $class_property TO_CLASS_PROPERTY
+
+  #define $CLASS_END TO_CLASS_END
+  #define $class_end TO_CLASS_END 
+
+  #define $MTABLE TO_MTABLE
+  #define $mtable TO_MTABLE
+
+  #define $MTABLE_METHOD TO_MTABLE_METHOD
+  #define $mtable_method TO_MTABLE_METHOD
+
+  #define $MTABLE_END TO_MTABLE_END
+  #define $mtable_end TO_MTABLE_END
+
+  #define $MTABLE_DEFINE TO_MTABLE_DEFINE
+  #define $mtable_define TO_MTABLE_DEFINE
+
+  #define $MTABLE_DEFINE_METHOD TO_MTABLE_DEFINE_METHOD
+  #define $mtable_define_method TO_MTABLE_DEFINE_METHOD
+  
+  #define $MTABLE_DEFINE_END TO_MTABLE_DEFINE_END
+  #define $mtable_define_end TO_MTABLE_DEFINE_END
+
+  #define $VTABLE TO_VTABLE
+  #define $vtable TO_VTABLE
+
+  #define $VTABLE_METHOD TO_VTABLE_METHOD
+  #define $vtable_method TO_VTABLE_METHOD
+
+  #define $VTABLE_END TO_VTABLE_END
+  #define $vtable_end TO_VTABLE_END
+
+  #define $VTABLE_DEFINE TO_VTABLE_DEFINE
+  #define $vtable_define TO_VTABLE_DEFINE
+
+  #define $VTABLE_DEFINE_METHOD TO_VTABLE_DEFINE_METHOD
+  #define $vtable_define_method TO_VTABLE_DEFINE_METHOD
+
+  #define $VTABLE_DEFINE_END TO_VTABLE_DEFINE_END
+  #define $vtable_define_end TO_VTABLE_DEFINE_END
+
+  #define $VTABLE_INIT TO_VTABLE_INIT
+  #define $vtable_init TO_VTABLE_INIT
+
+  #define $VTABLE_INHERIT TO_VTABLE_INHERIT
+  #define $vtable_inherit TO_VTABLE_INHERIT
+
+  #define $VTABLE_SET TO_VTABLE_SET
+  #define $vtable_set TO_VTABLE_SET
+
+  #define $VTABLE_SETP TO_VTABLE_SETP
+  #define $vtable_setp TO_VTABLE_SETP
+
+  #define $SETUP TO_SETUP
+  #define $setup TO_SETUP
+
+  #define $DESTROY_PARENT TO_DESTROY_PARENT
+  #define $destroy_parent TO_DESTROY_PARENT
+
+  #define $NEW TO_NEW
+  #define $new TO_NEW
+  
+  #define $INIT TO_INIT
+  #define $init TO_INIT
+
+  #define $ TO_CALL
+  #define $$ TOV_CALL
+
+  #define $REF TO_REF
+  #define $ref TO_REF
+  
+  #define $UNREF TO_UNREF
+  #define $unref TO_UNREF
+#endif
 
 /*
  * TObject

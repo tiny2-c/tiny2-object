@@ -7,26 +7,26 @@ static void titlegreeter_destructor(TitleGreeter* self);
 static void titlegreeter_init_vtable(TitleGreeterVTable* v);
 static void titlegreeter_vgreet(TitleGreeter* self, const char* who);
 
-TO_MTABLE_DEFINE(TitleGreeter, titlegreeter_constructor, titlegreeter_destructor, titlegreeter_init_vtable)
-TO_MTABLE_DEFINE_END(TitleGreeter)
+$mtable_define(TitleGreeter, titlegreeter_constructor, titlegreeter_destructor, titlegreeter_init_vtable)
+$mtable_define_end(TitleGreeter)
 
-TO_VTABLE_DEFINE(TitleGreeter)
-TO_VTABLE_DEFINE_END(TitleGreeter)
+$vtable_define(TitleGreeter)
+$vtable_define_end(TitleGreeter)
 
 static TitleGreeter* titlegreeter_constructor(TitleGreeter* self, const char* title) {
-  TO_INIT(Greeter, self);
-  TO_SETUP(TitleGreeter, self, titlegreeter_destructor);
+  $init(Greeter, self);
+  $setup(TitleGreeter, self, titlegreeter_destructor);
   self->title = title;
   return self;
 }
 
 static void titlegreeter_destructor(TitleGreeter* self) {
-  TO_DESTROY_PARENT(Greeter, self);
+  $destroy_parent(Greeter, self);
 }
 
 static void titlegreeter_init_vtable(TitleGreeterVTable* v) {
-  TO_VTABLE_INIT(v, TitleGreeter, Greeter);
-  TO_VTABLE_SETP(v, TitleGreeter, Greeter, GreeterVGreet, vgreet, titlegreeter_vgreet);
+  $vtable_init(v, TitleGreeter, Greeter);
+  $vtable_setp(v, TitleGreeter, Greeter, GreeterVGreet, vgreet, titlegreeter_vgreet);
 }
 
 static void titlegreeter_vgreet(TitleGreeter* self, const char* who) {

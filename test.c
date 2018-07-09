@@ -3,15 +3,15 @@
 #include "test-titlegreeter.h"
 
 int main(int argc, char** argv) {
-  TObject* o = TO_NEW(TObject);
-  TO_UNREF(o);
+  TObject* o = $new(TObject);
+  $unref(o);
 
-  Greeter* g = TO_NEW(Greeter);
-  TO_CALL(Greeter, g, greet, "World");
-  TO_UNREF(g);
+  Greeter* g = $new(Greeter);
+  $(Greeter, g, greet, "World");
+  $unref(g);
 
-  TitleGreeter* tg = TO_NEW(TitleGreeter, "Mr ");
-  TOV_CALL(Greeter, tg, vgreet, "World");
-  TO_UNREF(tg);
+  TitleGreeter* tg = $new(TitleGreeter, "Mr ");
+  $$(Greeter, tg, vgreet, "World");
+  $unref(tg);
   return 0;
 }
