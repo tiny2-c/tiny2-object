@@ -217,7 +217,8 @@ typedef void (*TObjectRef)(TObject*);
 typedef void (*TObjectUnref)(TObject*);
 
 TO_CLASS(TObject, int, refcount)
-  TO_CLASS_PROPERTY(TObjectDestructor, top_destructor);
+  TO_CLASS_PROPERTY(bool, dying)
+  TO_CLASS_PROPERTY(TObjectDestructor, top_destructor)
 TO_CLASS_END(TObject)
 TO_MTABLE(TObject)
   TO_MTABLE_METHOD(TObjectRef, ref)

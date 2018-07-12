@@ -43,6 +43,7 @@ TObjectVTable TObject_vtable = {
 static TObject* tobject_constructor(TObject* self) {
   TO_SETUP(TObject, self, tobject_destructor);
   self->refcount = 1;
+  self->dying = false;
   return self;
 }
 
@@ -59,8 +60,10 @@ static void tobject_ref(TObject* self) {
 
 static void tobject_unref(TObject* self) {
   if (self == NULL) return;
+  if (self->dying) return;
   --(self->refcount);
   if (self->refcount <= 0) {
+    self->dying = true;
     self->top_destructor(self);
     free(self);
   }
