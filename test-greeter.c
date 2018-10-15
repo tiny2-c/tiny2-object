@@ -19,6 +19,7 @@ $vtable_define_end(Greeter)
 static Greeter* greeter_constructor(Greeter* self) {
   $init(TObject, self);
   $setup(Greeter, self, greeter_destructor);
+  $reg(Greeter, TObject);
   return self;
 }
 

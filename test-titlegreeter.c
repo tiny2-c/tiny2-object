@@ -16,6 +16,7 @@ $vtable_define_end(TitleGreeter)
 static TitleGreeter* titlegreeter_constructor(TitleGreeter* self, const char* title) {
   $init(Greeter, self);
   $setup(TitleGreeter, self, titlegreeter_destructor);
+  $reg(TitleGreeter, Greeter);
   self->title = title;
   return self;
 }

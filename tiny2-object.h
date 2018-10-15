@@ -2,10 +2,19 @@
 
 #include <stdbool.h>
 #include <stddef.h>
+#include <stdint.h>
 
 /*
- * Macros
- */ 
+ * djb2
+ */
+
+extern uint64_t to_djb2(const char* str);
+
+/*
+ * Macros & functions
+ */
+
+void to_dump_type_tree();
 
 #define TO_CLASS_DECL(T)                  \
   typedef struct T ## MTable T ## MTable; \
@@ -118,90 +127,115 @@
 #define TO_REF(o) TO_CALL(TObject, o, ref);
 #define TO_UNREF(o) TO_CALL(TObject, o, unref);
 
+void to_register(uint64_t t, uint64_t p);
+#define TO_REGISTER(t, p)                  \
+  static bool _to_reg = false;             \
+  if (!_to_reg) {                          \
+    to_register(to_djb2(#t), to_djb2(#p)); \
+    _to_reg = true;                        \
+  }
+
+#define TO_SAME(a, b) ((((TObject*) (a))->th) == (((TObject*) (b))->th))
+
+bool to_is(uint64_t a, uint64_t b);
+#define TO_IS(a, b) (to_is((((TObject*)(a))->th), to_djb2(#b)))
+
 #ifndef TINY2_NO_SHORTCUTS
-  #define $CLASS_DECL TO_CLASS_DECL
-  #define $class_decl TO_CLASS_DECL
+#define $CLASS_DECL TO_CLASS_DECL
+#define $class_decl TO_CLASS_DECL
 
-  #define $CLASS TO_CLASS
-  #define $class TO_CLASS
+#define $CLASS TO_CLASS
+#define $class TO_CLASS
 
-  #define $CLASS_WITH_PRIVATE TO_CLASS_WITH_PRIVATE
-  #define $class_with_private TO_CLASS_WITH_PRIVATE
+#define $CLASS_WITH_PRIVATE TO_CLASS_WITH_PRIVATE
+#define $class_with_private TO_CLASS_WITH_PRIVATE
 
-  #define $CLASS_PROPERTY TO_CLASS_PROPERTY
-  #define $class_property TO_CLASS_PROPERTY
+#define $CLASS_PROPERTY TO_CLASS_PROPERTY
+#define $class_property TO_CLASS_PROPERTY
 
-  #define $CLASS_END TO_CLASS_END
-  #define $class_end TO_CLASS_END 
+#define $CLASS_END TO_CLASS_END
+#define $class_end TO_CLASS_END 
 
-  #define $MTABLE TO_MTABLE
-  #define $mtable TO_MTABLE
+#define $MTABLE TO_MTABLE
+#define $mtable TO_MTABLE
 
-  #define $MTABLE_METHOD TO_MTABLE_METHOD
-  #define $mtable_method TO_MTABLE_METHOD
+#define $MTABLE_METHOD TO_MTABLE_METHOD
+#define $mtable_method TO_MTABLE_METHOD
 
-  #define $MTABLE_END TO_MTABLE_END
-  #define $mtable_end TO_MTABLE_END
+#define $MTABLE_END TO_MTABLE_END
+#define $mtable_end TO_MTABLE_END
 
-  #define $MTABLE_DEFINE TO_MTABLE_DEFINE
-  #define $mtable_define TO_MTABLE_DEFINE
+#define $MTABLE_DEFINE TO_MTABLE_DEFINE
+#define $mtable_define TO_MTABLE_DEFINE
 
-  #define $MTABLE_DEFINE_METHOD TO_MTABLE_DEFINE_METHOD
-  #define $mtable_define_method TO_MTABLE_DEFINE_METHOD
-  
-  #define $MTABLE_DEFINE_END TO_MTABLE_DEFINE_END
-  #define $mtable_define_end TO_MTABLE_DEFINE_END
+#define $MTABLE_DEFINE_METHOD TO_MTABLE_DEFINE_METHOD
+#define $mtable_define_method TO_MTABLE_DEFINE_METHOD
 
-  #define $VTABLE TO_VTABLE
-  #define $vtable TO_VTABLE
+#define $MTABLE_DEFINE_END TO_MTABLE_DEFINE_END
+#define $mtable_define_end TO_MTABLE_DEFINE_END
 
-  #define $VTABLE_METHOD TO_VTABLE_METHOD
-  #define $vtable_method TO_VTABLE_METHOD
+#define $VTABLE TO_VTABLE
+#define $vtable TO_VTABLE
 
-  #define $VTABLE_END TO_VTABLE_END
-  #define $vtable_end TO_VTABLE_END
+#define $VTABLE_METHOD TO_VTABLE_METHOD
+#define $vtable_method TO_VTABLE_METHOD
 
-  #define $VTABLE_DEFINE TO_VTABLE_DEFINE
-  #define $vtable_define TO_VTABLE_DEFINE
+#define $VTABLE_END TO_VTABLE_END
+#define $vtable_end TO_VTABLE_END
 
-  #define $VTABLE_DEFINE_METHOD TO_VTABLE_DEFINE_METHOD
-  #define $vtable_define_method TO_VTABLE_DEFINE_METHOD
+#define $VTABLE_DEFINE TO_VTABLE_DEFINE
+#define $vtable_define TO_VTABLE_DEFINE
 
-  #define $VTABLE_DEFINE_END TO_VTABLE_DEFINE_END
-  #define $vtable_define_end TO_VTABLE_DEFINE_END
+#define $VTABLE_DEFINE_METHOD TO_VTABLE_DEFINE_METHOD
+#define $vtable_define_method TO_VTABLE_DEFINE_METHOD
 
-  #define $VTABLE_INIT TO_VTABLE_INIT
-  #define $vtable_init TO_VTABLE_INIT
+#define $VTABLE_DEFINE_END TO_VTABLE_DEFINE_END
+#define $vtable_define_end TO_VTABLE_DEFINE_END
 
-  #define $VTABLE_INHERIT TO_VTABLE_INHERIT
-  #define $vtable_inherit TO_VTABLE_INHERIT
+#define $VTABLE_INIT TO_VTABLE_INIT
+#define $vtable_init TO_VTABLE_INIT
 
-  #define $VTABLE_SET TO_VTABLE_SET
-  #define $vtable_set TO_VTABLE_SET
+#define $VTABLE_INHERIT TO_VTABLE_INHERIT
+#define $vtable_inherit TO_VTABLE_INHERIT
 
-  #define $VTABLE_SETP TO_VTABLE_SETP
-  #define $vtable_setp TO_VTABLE_SETP
+#define $VTABLE_SET TO_VTABLE_SET
+#define $vtable_set TO_VTABLE_SET
 
-  #define $SETUP TO_SETUP
-  #define $setup TO_SETUP
+#define $VTABLE_SETP TO_VTABLE_SETP
+#define $vtable_setp TO_VTABLE_SETP
 
-  #define $DESTROY_PARENT TO_DESTROY_PARENT
-  #define $destroy_parent TO_DESTROY_PARENT
+#define $SETUP TO_SETUP
+#define $setup TO_SETUP
 
-  #define $NEW TO_NEW
-  #define $new TO_NEW
-  
-  #define $INIT TO_INIT
-  #define $init TO_INIT
+#define $DESTROY_PARENT TO_DESTROY_PARENT
+#define $destroy_parent TO_DESTROY_PARENT
 
-  #define $ TO_CALL
-  #define $$ TOV_CALL
+#define $NEW TO_NEW
+#define $new TO_NEW
 
-  #define $REF TO_REF
-  #define $ref TO_REF
-  
-  #define $UNREF TO_UNREF
-  #define $unref TO_UNREF
+#define $INIT TO_INIT
+#define $init TO_INIT
+
+#define $ TO_CALL
+#define $$ TOV_CALL
+
+#define $REF TO_REF
+#define $ref TO_REF
+
+#define $UNREF TO_UNREF
+#define $unref TO_UNREF
+
+#define $REGISTER TO_REGISTER
+#define $register TO_REGISTER
+
+#define $REG TO_REGISTER
+#define $reg TO_REGISTER
+
+#define $SAME TO_SAME
+#define $same TO_SAME
+
+#define $IS TO_IS
+#define $is TO_IS
 #endif
 
 /*
@@ -211,27 +245,27 @@
 TO_CLASS_DECL(TObject);
 
 typedef TObject* (*TObjectConstructor)(TObject*);
-typedef void (*TObjectDestructor)(TObject*);
-typedef void (*TObjectInitVTable)(TObjectVTable*);
-typedef void (*TObjectRef)(TObject*);
-typedef void (*TObjectUnref)(TObject*);
+typedef void(*TObjectDestructor)(TObject*);
+typedef void(*TObjectInitVTable)(TObjectVTable*);
+typedef void(*TObjectRef)(TObject*);
+typedef void(*TObjectUnref)(TObject*);
 
 TO_CLASS(TObject, int, refcount)
-  TO_CLASS_PROPERTY(bool, dying)
-  TO_CLASS_PROPERTY(TObjectDestructor, top_destructor)
+TO_CLASS_PROPERTY(bool, dying)
+TO_CLASS_PROPERTY(TObjectDestructor, top_destructor)
+TO_CLASS_PROPERTY(uint64_t, th)
 TO_CLASS_END(TObject)
 TO_MTABLE(TObject)
-  TO_MTABLE_METHOD(TObjectRef, ref)
-  TO_MTABLE_METHOD(TObjectRef, unref)
+TO_MTABLE_METHOD(TObjectRef, ref)
+TO_MTABLE_METHOD(TObjectRef, unref)
 TO_MTABLE_END(TObject)
 typedef struct TObjectVTable {
   bool _initialized;
 } TObjectVTable;
-extern TObjectVTable TObject_vtable; 
+extern TObjectVTable TObject_vtable;
 
 /*
  * Allocator
  */
 
-TObject* to_new_sz(size_t sz, const char* name);
-TObject* to_init(void* obj);
+extern TObject* to_new_sz(size_t sz, const char* name);
