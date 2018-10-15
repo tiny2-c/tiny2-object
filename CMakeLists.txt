@@ -28,6 +28,7 @@ if(MSVC)
     TARGETS tiny2-object
     ARCHIVE DESTINATION lib
   )
+  install(FILES tiny2-object.h DESTINATION include)
 else()
   install(
     TARGETS tiny2-object
